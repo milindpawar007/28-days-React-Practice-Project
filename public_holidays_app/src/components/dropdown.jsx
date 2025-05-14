@@ -20,11 +20,11 @@ const Dropdown = () => {
    
     function handleChange(event) {
         const selectedCountry = event.target.value;
-        console.log(selectedCountry);
+        
         const fetchHoiliday = async () => {
             const response = await fetch("https://openholidaysapi.org/PublicHolidays?countryIsoCode="+selectedCountry+"&languageIsoCode=EN&validFrom=2025-01-01&validTo=2025-12-31");
             const data = await response.json();
-            console.log(data);
+            
             const holidaysList = data.map((holiday) => ({
                 holidayDatae:holiday.endDate ,
                 holidayTitle:holiday.name[0].text
