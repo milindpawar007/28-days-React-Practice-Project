@@ -36,3 +36,41 @@
     transform: rotate(360deg);
   }
 }
+
+.accordion{
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  transition: box-shadow 0.3s ease;
+  border: 5px solid #61dafb;
+  margin-bottom: 20px;
+}
+
+.accordion-title{
+
+  width: 800px;
+ 
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border-bottom: #fff solid 1px;
+  padding:10px;
+
+  span{
+    color: green;
+  }
+  
+}
+
+.accordion-content{
+  width: 100%;
+  max-width: 800px;
+  display: flex;
+  justify-content:start  ;
+  padding: 10px;
+  flex-wrap:nowrap;
+}
