@@ -38,12 +38,14 @@
 }
 
 .ImageContainer{
-  display: 'flex';
+  display: flex;
+  flex-direction: row;
+  padding: 10px;
   flex-wrap: wrap;
-  width: '330px';
-  gap: '10px';
-  align-items: 'center';
-  justify-content: 'center';
+ /* // width: 800px; */
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
 
 }
 img{
@@ -51,3 +53,16 @@ img{
   width: 200px;
   
 }
+
+.active{
+  display: "";
+}
+.Inactive{
+  display: none;
+}
+.placeholder{
+  height: 200px;
+  width: 200px;
+  background-color: grey;
+}
+
