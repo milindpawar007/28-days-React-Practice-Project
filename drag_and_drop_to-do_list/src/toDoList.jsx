@@ -18,8 +18,9 @@ function ToDoList({ todos }) {
     }
     return (
         <>
+          <h2>To Do APP</h2>
             <div className="todo-input-section">
-                <h2>To Do List</h2>
+              
                 <input type="text" value={input || ''} placeholder="Add a new task" onChange={handleInputChange} />
                 <button onClick={handleAdd}>Add</button>
             </div>
