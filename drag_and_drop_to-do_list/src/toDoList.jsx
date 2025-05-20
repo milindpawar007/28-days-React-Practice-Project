@@ -26,7 +26,7 @@ function ToDoList({ todos }) {
             </div>
             <div className='Container'>
                 <div className='todo'>
-                    <h2>To Do List</h2>
+                    <h2 >To Do List</h2>
                     <ul>
                         {todo.map((todo, index) => (
                             <li key={todo.id}>
