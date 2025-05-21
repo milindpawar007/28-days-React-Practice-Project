@@ -1,6 +1,8 @@
 import React from 'react';
 import axios from 'axios';
-
+import ErrorMessage from './error';
+import Loader from './Loader';
+import ImagePlaceholder from './Imageplaceholder';
 type Movie = {
     title: string;
     poster_path: string;
@@ -27,7 +29,7 @@ export default function MovieSearch() {
             };
 
             const response = await axios.get(
-                `https://api.themoviedb.org/3/search/movie?query=${input}&include_adult=true&language=en-US&page=1`,
+                `https://api.themoviedb.org/3/search/movie?query=${input}&include_adult=false&language=en-US&page=1`,
                 options
             );
             setMovie(response.data?.results);
@@ -45,26 +47,11 @@ export default function MovieSearch() {
                     type="text"
                     placeholder="Search for a movie..."
                     onChange={(e) => setInput(e.target.value)}
-                    style={{
-                        padding: '10px 14px',
-                        borderRadius: 6,
-                        border: '1px solid #ccc',
-                        fontSize: 16,
-                        width: 260
-                    }}
+                   
                 />
                 <button
                     onClick={handelSearch}
-                    style={{
-                        padding: '10px 18px',
-                        borderRadius: 6,
-                        border: 'none',
-                        background: '#007bff',
-                        color: '#fff',
-                        fontWeight: 600,
-                        fontSize: 16,
-                        cursor: 'pointer'
-                    }}
+                  
                     disabled={loading}
                 >
                     Search
@@ -72,98 +59,23 @@ export default function MovieSearch() {
             </div>
 
             {loading && (
-                <div style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    margin: '40px 0'
-                }}>
-                    <div className="loader" style={{
-                        border: '6px solid #f3f3f3',
-                        borderTop: '6px solid #007bff',
-                        borderRadius: '50%',
-                        width: 48,
-                        height: 48,
-                        animation: 'spin 1s linear infinite'
-                    }} />
-                    <style>
-                        {`
-                        @keyframes spin {
-                            0% { transform: rotate(0deg);}
-                            100% { transform: rotate(360deg);}
-                        }
-                        `}
-                    </style>
-                    <span style={{ marginTop: 16, color: '#007bff', fontWeight: 500, fontSize: 18 }}>Loading movies...</span>
-                </div>
+                <Loader />
             )}
 
-            {error && (
-                <div style={{
-                    background: '#ffeaea',
-                    color: '#d8000c',
-                    border: '1px solid #d8000c',
-                    borderRadius: 8,
-                    padding: '18px 24px',
-                    margin: '24px 0',
-                    textAlign: 'center',
-                    fontWeight: 500,
-                    fontSize: 18,
-                    boxShadow: '0 2px 8px rgba(216,0,12,0.08)'
-                }}>
-                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" style={{ verticalAlign: 'middle', marginRight: 8 }}>
-                        <circle cx="12" cy="12" r="12" fill="#d8000c" opacity="0.15"/>
-                        <path d="M12 7v5M12 16h.01" stroke="#d8000c" strokeWidth="2" strokeLinecap="round"/>
-                    </svg>
-                    {error}
-                </div>
-            )}
+            {error && <ErrorMessage message={error} />}
 
             <div className="movie-list" style={{ display: 'flex', flexWrap: 'wrap', gap: 24 }}>
                 {!loading && !error && movie && movie.length > 0 ? (
                     movie.map((item, index) => (
-                        <div className="movie-card" key={index} style={{
-                            background: '#fff',
-                            borderRadius: 10,
-                            boxShadow: '0 2px 12px rgba(0,0,0,0.08)',
-                            padding: 16,
-                            width: 220,
-                            display: 'flex',
-                            flexDirection: 'column',
-                            alignItems: 'center'
-                        }}>
+                        <div className="movie-card" key={index} >
                             {item?.poster_path ? (
                                 <img
                                     src={`https://image.tmdb.org/t/p/original/${item.poster_path}`}
                                     alt={item.title}
-                                    style={{ width: 200, height: 300, objectFit: "cover", background: "#000", borderRadius: 8 }}
+
                                 />
                             ) : (
-                                <div style={{
-                                    width: 200,
-                                    height: 300,
-                                    display: "flex",
-                                    alignItems: "center",
-                                    justifyContent: "center",
-                                    background: "#000",
-                                    borderRadius: 8
-                                }}>
-                                    <svg width="120" height="180" viewBox="0 0 400 600" xmlns="http://www.w3.org/2000/svg">
-                                        <g transform="translate(100, 100)">
-                                            <rect x="40" y="40" width="120" height="80" rx="10" fill="white" />
-                                            <circle cx="100" cy="80" r="20" fill="black" />
-                                            <circle cx="140" cy="60" r="6" fill="black" />
-                                            <line x1="0" y1="0" x2="20" y2="0" stroke="white" strokeWidth="6" />
-                                            <line x1="0" y1="0" x2="0" y2="20" stroke="white" strokeWidth="6" />
-                                            <line x1="160" y1="0" x2="140" y2="0" stroke="white" strokeWidth="6" />
-                                            <line x1="160" y1="0" x2="160" y2="20" stroke="white" strokeWidth="6" />
-                                            <line x1="0" y1="120" x2="20" y2="120" stroke="white" strokeWidth="6" />
-                                            <line x1="0" y1="120" x2="0" y2="100" stroke="white" strokeWidth="6" />
-                                            <line x1="160" y1="120" x2="160" y2="100" stroke="white" strokeWidth="6" />
-                                            <line x1="160" y1="120" x2="140" y2="120" stroke="white" strokeWidth="6" />
-                                        </g>
-                                    </svg>
-                                </div>
+                                <ImagePlaceholder />
                             )}
                             <div style={{ display: 'flex', alignItems: 'center', marginTop: '8px' }}>
                                 {Array.from({ length: 5 }).map((_, i) => {
@@ -186,7 +98,7 @@ export default function MovieSearch() {
                                     {(item as any).vote_average?.toFixed(1) ?? "N/A"}
                                 </span>
                             </div>
-                            <div style={{ marginTop: 10, fontWeight: 600, fontSize: 16, textAlign: 'center' }}>{item.title}</div>
+                            <h3>{item.title}</h3>
                         </div>
                     ))
                 ) : null}
