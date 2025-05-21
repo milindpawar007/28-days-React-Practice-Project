@@ -89,7 +89,7 @@
   
 }
 
-.todo{
+.column{
   display: flex;
   width: 25%;
   flex-direction: column;
@@ -102,6 +102,7 @@ ul {
   margin: 10px;
   min-height: 400px; /* or any suitable value */
   box-sizing: border-box;
+  
 }
 
 li {
