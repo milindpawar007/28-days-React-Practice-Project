@@ -20,11 +20,13 @@ export default function MovieSearch() {
         setLoading(true);
         setError(false);
         try {
+            const API_KEY = process.env.REACT_APP_TMDB_API_KEY;
+            console.log("API_KEY", API_KEY);
             const options = {
                 method: 'GET',
                 headers: {
                     accept: 'application/json',
-                    Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyNjhhODczZGQ0NWE3Mzk1YWFjNDIxMDdhN2I4ZWVkNiIsIm5iZiI6MTc0NzgwMjg3Ni42NjEsInN1YiI6IjY4MmQ1YWZjNWFmNzA4ZmUwOTllNDFhNCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.HGA6VobXYLoBQRoKQFJYeZyqDEjKhj6RHD6Qwl9J3o0'
+                    Authorization:`Bearer ${API_KEY}`,
                 }
             };
 
