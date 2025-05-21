@@ -45,9 +45,9 @@ export default function MovieSearch() {
 
     return (
         <div>
-            <div className="serch-bar">
+            <div className="search-bar">
                 <input   type="text"  placeholder="Search for a movie..."  onChange={(e) => setInput(e.target.value)} />
-                <button onClick={handelSearch}disabled={loading}> Search</button>
+                <button type="button" onClick={handelSearch} disabled={loading}> Search</button>
             </div>
 
             {loading && (<Loader /> )}
