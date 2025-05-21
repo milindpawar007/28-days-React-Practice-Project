@@ -18,15 +18,15 @@ function ToDoList({ todos }) {
     }
     return (
         <>
-          <h2>To Do APP</h2>
+            <h2>To Do APP</h2>
             <div className="todo-input-section">
-              
+
                 <input type="text" value={input || ''} placeholder="Add a new task" onChange={handleInputChange} />
                 <button onClick={handleAdd}>Add</button>
             </div>
             <div className='Container'>
                 <div className='todo'>
-                    <h2 >To Do List</h2>
+                    <h2 className='header' >To Do List</h2>
                     <ul>
                         {todo.map((todo, index) => (
                             <li key={todo.id}>
@@ -36,7 +36,7 @@ function ToDoList({ todos }) {
                     </ul>
                 </div>
                 <div className='todo'>
-                    <h2>In-Progress</h2>
+                    <h2 className='header'>In-Progress</h2>
                     <ul>
                         {todo.map((todo, index) => (
                             <li key={todo.id}>
@@ -46,7 +46,7 @@ function ToDoList({ todos }) {
                     </ul>
                 </div>
                 <div className='todo'>
-                    <h2>Done</h2>
+                    <h2 className='header'>Done</h2>
                     <ul>
 
                         {todo.map((todo, index) => (

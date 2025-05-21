@@ -99,7 +99,7 @@
 ul {
   list-style: none;
   padding: 0;
-  margin: 0;
+  margin: 10px;
 }
 
 li {
@@ -109,4 +109,12 @@ li {
   border-radius: 4px;
   background: #fff;
   color: #282c34;
+}
+.header{
+  background: #61dafb;
+  color: #282c34;
+  padding: 10px;
+  font-size: 1.5rem;
+  text-align: center;
+  margin: 13px;
 }
