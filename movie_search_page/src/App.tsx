@@ -1,13 +1,15 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import MovieSearch from './movie_search';
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-       
+     <h1>Movie Search</h1>
       </header>
+      <MovieSearch />
+      
     </div>
   );
 }
