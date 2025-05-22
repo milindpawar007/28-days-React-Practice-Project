@@ -37,10 +37,11 @@ const PokemonList = () => {
                 <h1>Pokemon List</h1>
 
 
-                <ul>{result.map((pokeman, index) => <li key={index}>{pokeman.name}</li>)}</ul>
+                <ul>{result.map((pokeman) => <li key={pokeman.name}>{pokeman.name}</li>)}</ul>
 
-                <h5>Displaying {result.length} of results {count}</h5>
-                {result.length !== count && <button onClick={handelLoadMore}>Load More</button>}
+                <h5>Displaying {result.length} of {count} results</h5>
+
+                {result.length !== count && <button onClick={handelLoadMore}>Load more</button>}
 
             </div>
         </>
