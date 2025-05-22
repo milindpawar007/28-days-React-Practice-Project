@@ -3,8 +3,8 @@
 // https://pokeapi.co/api/v2/pokemon?limit=5&offset=0
 
 const PokemonList = () => {
-
-    return(
+    const [result, setResult] = useState()
+    return (
         <h1>helllo</h1>
     )
 };
