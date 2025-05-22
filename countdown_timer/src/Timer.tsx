@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Timer: React.FC = () => {
-    const [seconds, setSeconds] = React.useState<number>(60000);
+    const [seconds, setSeconds] = React.useState<number>(300000);
     const stopwatch = React.useRef<any>(null);
     const handelStart = () => {
         if (stopwatch.current !== null) return;
