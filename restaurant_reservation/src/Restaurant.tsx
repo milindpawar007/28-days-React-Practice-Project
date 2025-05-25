@@ -1,106 +1,141 @@
+import React, { useState } from "react";
 
-import React, { useState } from 'react'
+const getToday = () => {
+    const today = new Date();
+    return today.toISOString().split("T")[0];
+};
 
-const Restaurant = () => {
-    const [showGuestPopup, setShowGuestPopup] = useState(false);
-    const [selectedGuests, setSelectedGuests] = useState(1);
-    const [selectedDate, setSelectedDate] = useState(new Date().toISOString().split('T')[0]);
-    const [selectedTime, setSelectedTime] = useState("12:00");
+const RestaurantBooking: React.FC = () => {
+    const [step, setStep] = useState<number>(1);
+    const [guests, setGuests] = useState<number>(2);
+    const [showGuestPopup, setShowGuestPopup] = useState<boolean>(false);
+    const [date, setDate] = useState<string>(getToday());
+    const [time, setTime] = useState<string>("12:00");
+    const [name, setName] = useState<string>("");
+    const [phone, setPhone] = useState<string>("");
+
+    const formatDate = (dateStr: string): string => {
+        const [year, month, day] = dateStr.split("-");
+        return `${parseInt(month)}/${parseInt(day)}/${year}`;
+    };
+
+    const handleConfirm = (e: React.FormEvent) => {
+        e.preventDefault();
+        alert(`Reservation confirmed for ${guests} at ${formatDate(date)} ${time}`);
+    };
+
     return (
-        <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
-            <div className="w-full max-w-xs sm:max-w-md md:max-w-lg bg-white rounded-lg shadow-lg flex flex-col items-center justify-center p-6" >
-                <h1 className="text-black font-bold text-2xl mb-2 text-left w-full">Book a table</h1>
-                <p className="text-black mb-4 text-left w-full">This is where you'll add the details of your booking.</p>
-                <form className="flex flex-col items-center justify-center w-full">
-                    <div className="flex items-center w-full mb-2">
-                        <label className="text-left text-black font-medium mr-2 w-1/3" htmlFor="guests">
-                            Number of guests
-                        </label>
-                        <div className="relative w-2/3">
-                            <button
-                                type="button"
-                                className="border-2 border-gray-300 rounded-md p-2 bg-white text-black cursor-pointer select-none w-full text-left"
-                                aria-haspopup="listbox"
-                                aria-expanded={showGuestPopup ? "true" : "false"}
+        <div className="min-h-screen bg-gray-900 flex items-center justify-center p-4">
+            <div className="bg-white w-full max-w-md rounded-md shadow-md p-6">
+                {step === 1 && (
+                    <>
+                        <h2 className="font-bold text-lg mb-2">Book a table</h2>
+                        <p className="mb-4 text-sm text-gray-700">
+                            This is where you'll add the details of your booking
+                        </p>
+                        <div className="mb-3">
+                            <label className="text-xs font-medium text-gray-500 mb-1 block">
+                                People
+                            </label>
+                            <div
                                 onClick={() => setShowGuestPopup(!showGuestPopup)}
+                                className="bg-blue-100 p-2 rounded-md cursor-pointer"
                             >
-                                {selectedGuests} {selectedGuests === 1 ? "person" : "people"}
-                            </button>
+                                {guests} {guests === 1 ? "person" : "persons"}
+                            </div>
                             {showGuestPopup && (
-                                <div className="absolute z-10 mt-2 bg-white border border-gray-300 rounded-lg shadow-lg p-2 w-full">
-                                    <div className="grid grid-cols-5 gap-2">
-                                        {Array.from({ length: 10 }, (_, i) => (
-                                            <div
-                                                key={i + 1}
-                                                className={`rounded-full w-10 h-10 flex items-center justify-center cursor-pointer border-2 ${
-                                                    selectedGuests === i + 1
-                                                        ? "bg-blue-500 text-white border-blue-500"
-                                                        : "bg-gray-100 text-black border-gray-300"
-                                                } hover:bg-blue-100`}
-                                                onClick={() => {
-                                                    setSelectedGuests(i + 1);
-                                                    setShowGuestPopup(false);
-                                                }}
-                                            >
-                                                {i + 1}
-                                            </div>
-                                        ))}
-                                    </div>
+                                <div className="grid grid-cols-5 gap-4 bg-white shadow-lg rounded-md p-4 mt-2">
+                                    {Array.from({ length: 10 }, (_, i) => (
+                                        <button
+                                            key={i}
+                                            onClick={() => {
+                                                setGuests(i + 1);
+                                                setShowGuestPopup(false);
+                                            }}
+                                            className="bg-blue-50 border rounded-md h-10 w-10 text-sm hover:bg-blue-200"
+                                        >
+                                            {i + 1}
+                                        </button>
+                                    ))}
                                 </div>
                             )}
                         </div>
-                    </div>
-
-                    <div className="flex items-center w-full mb-2">
-                        <label className="text-left text-black font-medium mr-2 w-1/3" htmlFor="date">
-                            Select date
-                        </label>
-                        <input
-                            id="date"
-                            type="date"
-                            placeholder="Select date"
-                            className="border-2 border-gray-300 rounded-md p-2 w-2/3 text-black bg-white"
-                            value={selectedDate}
-                            onChange={(e) => setSelectedDate(e.target.value)}
-                            min={new Date().toISOString().split('T')[0]} // Disable past dates
-                        />
-                    </div>
-
-                    <div className="flex items-center w-full mb-4">
-                        <label className="text-left text-black font-medium mr-2 w-1/3" htmlFor="time">
-                            Time
-                        </label>
-                        <select
-                            id="time"
-                            className="border-2 border-gray-300 rounded-md p-2 w-2/3 text-black bg-white"
-                            defaultValue={selectedTime}
-                            onChange={(e) => setSelectedTime(e.target.value)}
+                        <div className="mb-3">
+                            <label className="text-xs font-medium text-gray-500 mb-1 block">
+                                Date
+                            </label>
+                            <input
+                                placeholder="Select date"
+                                type="date"
+                                className="bg-blue-100 p-2 rounded-md w-full"
+                                value={date}
+                                min={getToday()}
+                                onChange={(e) => setDate(e.target.value)}
+                            />
+                        </div>
+                        <div className="mb-4">
+                            <label className="text-xs font-medium text-gray-500 mb-1 block">
+                                Time
+                            </label>
+                            <input
+                                type="time"
+                                placeholder="Select time"
+                                className="bg-blue-100 p-2 rounded-md w-full"
+                                value={time}
+                                onChange={(e) => setTime(e.target.value)}
+                            />
+                        </div>
+                        <button
+                            onClick={() => setStep(2)}
+                            className="bg-blue-500 text-white px-4 py-2 rounded-md"
                         >
-                            {Array.from({ length: 17 }, (_, i) => {
-                                const hour = 12 + Math.floor(i / 2);
-                                const minute = i % 2 === 0 ? "00" : "30";
-                                const ampm = hour < 12 ? "am" : "pm";
-                                const displayHour = hour > 12 ? hour - 12 : hour;
-                                const label = `${displayHour}:${minute} ${ampm}`;
-                                const value = `${hour.toString().padStart(2, "0")}:${minute}`;
-                                return (
-                                    <option key={value} value={value}>
-                                        {label}
-                                    </option>
-                                );
-                            })}
-                        </select>
-                    </div>
-                    <button
-                        type="submit"
-                        className="bg-blue-500 text-white rounded-md p-2 m-2 w-full"
-                    >
-                        Book Now
-                    </button>
-                </form>
+                            Book now
+                        </button>
+                    </>
+                )}
+
+                {step === 2 && (
+                    <>
+                        <h2 className="font-bold text-lg mb-4">Contact details</h2>
+                        <div className="bg-blue-100 p-4 rounded-md text-sm mb-4">
+                            You are making a reservation for <strong>{guests} persons</strong>, on{' '}
+                            <strong>{formatDate(date)} at {time}</strong>
+                        </div>
+                        <form onSubmit={handleConfirm}>
+                            <div className="mb-3">
+                                <label className="text-sm font-medium block mb-1">Name</label>
+                                <input
+                                    type="text"
+                                    placeholder="Enter your name"
+                                    value={name}
+                                    onChange={(e) => setName(e.target.value)}
+                                    required
+                                    className="border p-2 w-full rounded-md"
+                                />
+                            </div>
+                            <div className="mb-4">
+                                <label className="text-sm font-medium block mb-1">Phone number</label>
+                                <input
+                                    type="text"
+                                    placeholder="Enter your phone number"
+                                    value={phone}
+                                    onChange={(e) => setPhone(e.target.value)}
+                                    required
+                                    className="border p-2 w-full rounded-md"
+                                />
+                            </div>
+                            <button
+                                type="submit"
+                                className="bg-blue-500 text-white px-4 py-2 rounded-md"
+                            >
+                                Confirm reservation
+                            </button>
+                        </form>
+                    </>
+                )}
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default Restaurant
+export default RestaurantBooking;
