@@ -28,9 +28,20 @@ const RestaurantBooking: React.FC = () => {
         return `${parseInt(month)}/${parseInt(day)}/${year}`;
     };
 
+    const resetForm = () => {
+        setStep(1);
+        setGuests(2);
+        setShowGuestPopup(false);
+        setDate(getToday());
+        setTime("13:00");
+        setName("");
+        setPhone("");
+    };
+
     const handleConfirm = (e: React.FormEvent) => {
         e.preventDefault();
         alert(`Reservation confirmed for ${guests} at ${formatDate(date)} ${time}`);
+        resetForm();
     };
 
     return (
@@ -38,8 +49,8 @@ const RestaurantBooking: React.FC = () => {
             <div className="bg-white w-full max-w-md rounded-md shadow-md p-6">
                 {step === 1 && (
                     <>
-                        <h2 className="font-bold text-lg mb-2 text-left">Book a table</h2>
-                        <p className="mb-4 text-sm text-gray-700 text-left">
+                        <h2 className="font-bold text-lg mb-2">Book a table</h2>
+                        <p className="mb-4 text-sm text-gray-700">
                             This is where you'll add the details of your booking
                         </p>
                         <div className="mb-3 flex items-center gap-2">

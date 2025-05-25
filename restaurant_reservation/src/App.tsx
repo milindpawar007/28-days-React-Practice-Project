@@ -5,8 +5,11 @@ import './App.css';
 function App() {
   return (
     <div className="App">
-      
-       <Restaurant />
+      <header className="App-header">
+        <h1>Restaurant Reservation</h1>
+        
+      </header>
+      <Restaurant />
       
       
     </div>
