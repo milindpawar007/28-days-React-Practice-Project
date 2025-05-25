@@ -5,12 +5,21 @@ const getToday = () => {
     return today.toISOString().split("T")[0];
 };
 
+const generateTimeSlots = () => {
+    const slots: string[] = [];
+    for (let hour = 13; hour <= 21; hour++) {
+        slots.push(`${hour.toString().padStart(2, "0")}:00`);
+        slots.push(`${hour.toString().padStart(2, "0")}:30`);
+    }
+    return slots;
+};
+
 const RestaurantBooking: React.FC = () => {
     const [step, setStep] = useState<number>(1);
     const [guests, setGuests] = useState<number>(2);
     const [showGuestPopup, setShowGuestPopup] = useState<boolean>(false);
     const [date, setDate] = useState<string>(getToday());
-    const [time, setTime] = useState<string>("12:00");
+    const [time, setTime] = useState<string>("13:00");
     const [name, setName] = useState<string>("");
     const [phone, setPhone] = useState<string>("");
 
@@ -33,7 +42,7 @@ const RestaurantBooking: React.FC = () => {
                         <p className="mb-4 text-sm text-gray-700">
                             This is where you'll add the details of your booking
                         </p>
-                        <div className="mb-3">
+                        <div className="mb-3 flex items-center gap-2">
                             <label className="text-xs font-medium text-gray-500 mb-1 block">
                                 People
                             </label>
@@ -60,30 +69,34 @@ const RestaurantBooking: React.FC = () => {
                                 </div>
                             )}
                         </div>
-                        <div className="mb-3">
-                            <label className="text-xs font-medium text-gray-500 mb-1 block">
+                        <div className="mb-3 flex items-center gap-2">
+                            <label className="text-xs font-medium text-gray-500 mb-1 block whitespace-nowrap">
                                 Date
                             </label>
                             <input
                                 placeholder="Select date"
                                 type="date"
-                                className="bg-blue-100 p-2 rounded-md w-full"
+                                className="bg-blue-100 p-2 rounded-md flex-1"
                                 value={date}
                                 min={getToday()}
                                 onChange={(e) => setDate(e.target.value)}
                             />
                         </div>
-                        <div className="mb-4">
+                        <div className="mb-3 flex items-center gap-2">
                             <label className="text-xs font-medium text-gray-500 mb-1 block">
                                 Time
                             </label>
-                            <input
-                                type="time"
-                                placeholder="Select time"
+                            <select
                                 className="bg-blue-100 p-2 rounded-md w-full"
                                 value={time}
                                 onChange={(e) => setTime(e.target.value)}
-                            />
+                            >
+                                {generateTimeSlots().map((slot) => (
+                                    <option key={slot} value={slot}>
+                                        {slot}
+                                    </option>
+                                ))}
+                            </select>
                         </div>
                         <button
                             onClick={() => setStep(2)}
@@ -102,7 +115,7 @@ const RestaurantBooking: React.FC = () => {
                             <strong>{formatDate(date)} at {time}</strong>
                         </div>
                         <form onSubmit={handleConfirm}>
-                            <div className="mb-3">
+                            <div className="mb-3 flex items-center gap-2">
                                 <label className="text-sm font-medium block mb-1">Name</label>
                                 <input
                                     type="text"
@@ -113,7 +126,7 @@ const RestaurantBooking: React.FC = () => {
                                     className="border p-2 w-full rounded-md"
                                 />
                             </div>
-                            <div className="mb-4">
+                            <div className="mb-3 flex items-center gap-2">
                                 <label className="text-sm font-medium block mb-1">Phone number</label>
                                 <input
                                     type="text"
