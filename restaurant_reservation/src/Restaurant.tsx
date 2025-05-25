@@ -38,17 +38,17 @@ const RestaurantBooking: React.FC = () => {
             <div className="bg-white w-full max-w-md rounded-md shadow-md p-6">
                 {step === 1 && (
                     <>
-                        <h2 className="font-bold text-lg mb-2">Book a table</h2>
-                        <p className="mb-4 text-sm text-gray-700">
+                        <h2 className="font-bold text-lg mb-2 text-left">Book a table</h2>
+                        <p className="mb-4 text-sm text-gray-700 text-left">
                             This is where you'll add the details of your booking
                         </p>
                         <div className="mb-3 flex items-center gap-2">
-                            <label className="text-xs font-medium text-gray-500 mb-1 block">
+                            <label className="text-xs font-medium text-gray-500 mb-1 block w-24">
                                 People
                             </label>
                             <div
                                 onClick={() => setShowGuestPopup(!showGuestPopup)}
-                                className="bg-blue-100 p-2 rounded-md cursor-pointer"
+                                className="bg-blue-100 p-2 rounded-md cursor-pointer flex-1"
                             >
                                 {guests} {guests === 1 ? "person" : "persons"}
                             </div>
@@ -70,7 +70,7 @@ const RestaurantBooking: React.FC = () => {
                             )}
                         </div>
                         <div className="mb-3 flex items-center gap-2">
-                            <label className="text-xs font-medium text-gray-500 mb-1 block whitespace-nowrap">
+                            <label className="text-xs font-medium text-gray-500 mb-1 block w-24">
                                 Date
                             </label>
                             <input
@@ -83,11 +83,11 @@ const RestaurantBooking: React.FC = () => {
                             />
                         </div>
                         <div className="mb-3 flex items-center gap-2">
-                            <label className="text-xs font-medium text-gray-500 mb-1 block">
+                            <label className="text-xs font-medium text-gray-500 mb-1 block w-24">
                                 Time
                             </label>
                             <select
-                                className="bg-blue-100 p-2 rounded-md w-full"
+                                className="bg-blue-100 p-2 rounded-md flex-1"
                                 value={time}
                                 onChange={(e) => setTime(e.target.value)}
                             >
@@ -116,7 +116,7 @@ const RestaurantBooking: React.FC = () => {
                         </div>
                         <form onSubmit={handleConfirm}>
                             <div className="mb-3 flex items-center gap-2">
-                                <label className="text-sm font-medium block mb-1">Name</label>
+                                <label className="text-sm font-medium block mb-1 w-24">Name</label>
                                 <input
                                     type="text"
                                     placeholder="Enter your name"
@@ -127,7 +127,7 @@ const RestaurantBooking: React.FC = () => {
                                 />
                             </div>
                             <div className="mb-3 flex items-center gap-2">
-                                <label className="text-sm font-medium block mb-1">Phone number</label>
+                                <label className="text-sm font-medium block mb-1 w-24">Phone number</label>
                                 <input
                                     type="text"
                                     placeholder="Enter your phone number"
